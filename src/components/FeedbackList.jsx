@@ -8,9 +8,22 @@ function FeedbackList({ items, handleDelete }) {
   }
   return (
     <>
-      {items.map((item) => (
-        <FeedbackItem item={item} key={item.id} handleDelete={handleDelete} />
-      ))}
+      <AnimatePresence>
+        {items.map((item) => (
+          <motion.div
+            key={item.id}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <FeedbackItem
+              item={item}
+              key={item.id}
+              handleDelete={handleDelete}
+            />
+          </motion.div>
+        ))}
+      </AnimatePresence>
     </>
   )
 }

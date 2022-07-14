@@ -9,9 +9,7 @@ import { useState } from 'react'
 function App() {
   const [items, setItems] = useState(FeedbackData)
   const handleDelete = (id) => {
-    if (window.confirm('Are you sure you wanna delete?')) {
-      setItems(items.filter((item) => item.id !== id))
-    }
+    setItems(items.filter((item) => item.id !== id))
   }
   const handleAdd = (newFeedback) => {
     newFeedback.id = uuidv4()
