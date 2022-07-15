@@ -1,9 +1,12 @@
 import { v4 as uuidv4 } from 'uuid'
 import Header from './components/Header'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import About from './Pages/About'
 import FeedbackList from './components/FeedbackList'
 import FeedbackData from './data/FeedbackData'
 import FeedbackStats from './components/FeedbackStats'
 import FeedbackForm from './components/FeedbackForm'
+import AboutIconLink from './components/AboutIconLink'
 
 import { useState } from 'react'
 function App() {
@@ -16,14 +19,26 @@ function App() {
     setItems([newFeedback, ...items])
   }
   return (
-    <>
+    <Router>
       <Header />
-      <div className='container'>
-        <FeedbackForm addFeedback={handleAdd} />
-        <FeedbackStats items={items} />
-        <FeedbackList items={items} handleDelete={handleDelete} />
-      </div>
-    </>
+      <Routes>
+        <Route
+          exact
+          path='/'
+          element={
+            <>
+              <div className='container'>
+                <FeedbackForm addFeedback={handleAdd} />
+                <FeedbackStats items={items} />
+                <FeedbackList items={items} handleDelete={handleDelete} />
+              </div>
+              <AboutIconLink />
+            </>
+          }
+        ></Route>
+        <Route path='/about' element={<About />} />
+      </Routes>
+    </Router>
   )
 }
 
