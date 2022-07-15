@@ -1,13 +1,16 @@
-import { useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
+import { useState, useContext } from 'react'
 import Card from './shared/Card'
 import Button from './shared/Button'
 import RatingSelect from './RatingSelect'
+import FeedbackContext from '../context/FeedbackContext'
 
-function FeedbackForm({ addFeedback }) {
+function FeedbackForm() {
   const [text, setText] = useState('')
   const [rating, setRating] = useState(10)
   const [btnDisabled, setBtnDisabled] = useState(true)
   const [message, setMessage] = useState('')
+  const { addItem } = useContext(FeedbackContext)
   const handleChange = (e) => {
     setText(e.target.value)
 
@@ -27,8 +30,9 @@ function FeedbackForm({ addFeedback }) {
     const newFeedback = {
       text,
       rating,
+      id: uuidv4(),
     }
-    addFeedback(newFeedback)
+    addItem(newFeedback)
     setText('')
     setRating(10)
   }
