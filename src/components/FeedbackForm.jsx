@@ -1,19 +1,27 @@
-import { v4 as uuidv4 } from 'uuid'
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import Card from './shared/Card'
 import Button from './shared/Button'
 import RatingSelect from './RatingSelect'
 import FeedbackContext from '../context/FeedbackContext'
 
 function FeedbackForm() {
+  // States
   const [text, setText] = useState('')
   const [rating, setRating] = useState(10)
   const [btnDisabled, setBtnDisabled] = useState(true)
   const [message, setMessage] = useState('')
-  const { addItem } = useContext(FeedbackContext)
+  const { addItem, itemEdit, updateItem } = useContext(FeedbackContext)
+  // Check if itemEdit is True
+  useEffect(() => {
+    if (itemEdit.edit) {
+      setBtnDisabled(false)
+      setText(itemEdit.item.text)
+      setRating(itemEdit.item.rating)
+    }
+  }, [itemEdit])
+  // Handle Text Field Change
   const handleChange = (e) => {
     setText(e.target.value)
-
     if (text === '') {
       setBtnDisabled(true)
       setMessage(null)
@@ -25,14 +33,20 @@ function FeedbackForm() {
       setBtnDisabled(false)
     }
   }
+  // Handle Submit Event
   const handleSubmit = (e) => {
     e.preventDefault()
-    const newFeedback = {
-      text,
-      rating,
-      id: uuidv4(),
+    if (text.trim().length >= 10) {
+      const newFeedback = {
+        text,
+        rating,
+      }
+      if (itemEdit.edit === true) {
+        updateItem(itemEdit.item.id, newFeedback)
+      } else {
+        addItem(newFeedback)
+      }
     }
-    addItem(newFeedback)
     setText('')
     setRating(10)
   }
