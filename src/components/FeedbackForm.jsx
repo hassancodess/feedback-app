@@ -10,13 +10,18 @@ function FeedbackForm() {
   const [rating, setRating] = useState(10)
   const [btnDisabled, setBtnDisabled] = useState(true)
   const [message, setMessage] = useState('')
-  const { addItem, itemEdit, updateItem } = useContext(FeedbackContext)
+  const { addItem, itemEdit, setItemEdit, updateItem } =
+    useContext(FeedbackContext)
   // Check if itemEdit is True
   useEffect(() => {
-    if (itemEdit.edit) {
+    if (itemEdit.edit === true) {
       setBtnDisabled(false)
       setText(itemEdit.item.text)
       setRating(itemEdit.item.rating)
+    } else {
+      setBtnDisabled(true)
+      setText('')
+      setRating(10)
     }
   }, [itemEdit])
   // Handle Text Field Change
@@ -47,6 +52,7 @@ function FeedbackForm() {
         addItem(newFeedback)
       }
     }
+    setItemEdit({ edit: false, item: {} })
     setText('')
     setRating(10)
   }

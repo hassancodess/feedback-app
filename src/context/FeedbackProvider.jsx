@@ -38,7 +38,7 @@ const FeedbackProvider = ({ children }) => {
         return item.id === id ? { ...item, ...updatedItem } : item
       })
     )
-    console.log(id, updatedItem)
+    // console.log(id, updatedItem)
   }
 
   // Export Values
@@ -46,10 +46,11 @@ const FeedbackProvider = ({ children }) => {
     items,
     deleteItem,
     addItem,
-    // average,
+    average,
     itemEdit,
     editItem,
     updateItem,
+    setItemEdit,
   }
   return (
     <FeedbackContext.Provider value={values}>

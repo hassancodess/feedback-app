@@ -8,12 +8,16 @@ function RatingSelect({ select }) {
   const [selected, setSelected] = useState(10)
 
   useEffect(() => {
-    setSelected(itemEdit.item.rating)
+    if (Object.keys(itemEdit.item).length != 0) {
+      setSelected(itemEdit.item.rating)
+    } else {
+      setSelected(10)
+    }
   }, [itemEdit])
 
   const handleChange = (e) => {
-    setSelected(+e.target.value)
     select(+e.target.value)
+    setSelected(+e.target.value)
   }
   return (
     <ul className='rating'>
@@ -25,7 +29,7 @@ function RatingSelect({ select }) {
             id={`${item.id}`}
             value={`${item.value}`}
             onChange={handleChange}
-            checked={selected === +item.value}
+            checked={selected == +item.value}
           />
           <label htmlFor={`${item.id}`}>{item.value}</label>
         </li>
