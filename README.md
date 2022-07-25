@@ -1,7 +1,7 @@
-
 # Feedback App
 
-This is my first course project from the React Front to Back 2022  
+This is my first course project from the React Front to Back 2022
+
 ## Run Locally
 
 Clone the project
@@ -28,3 +28,6 @@ Start the server
   npm run dev
 ```
 
+## Demo
+
+[Feedback App](https://hassancodess-feedback-app.netlify.app/)
